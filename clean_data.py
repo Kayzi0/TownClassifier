@@ -16,6 +16,6 @@ def clean_data(file_path, output_path):
     with open(output_path, 'w') as file:
         file.write(filedata)
 
-clean_data("data\muni-bal.txt", "data\muni-bal-cleaned.txt")
-clean_data("data\muni-cat.txt", "data\muni-cat-cleaned.txt")
-clean_data("data\muni-val.txt", "data\muni-val-cleaned.txt")
+clean_data("data\raw\muni-bal.txt", "data\muni-bal-cleaned.txt")
+clean_data("data\raw\muni-cat.txt", "data\muni-cat-cleaned.txt")
+clean_data("data\raw\muni-val.txt", "data\muni-val-cleaned.txt")
