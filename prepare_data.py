@@ -60,8 +60,10 @@ def seperate_labels(data):
 
 data, labels = seperate_labels(data)
 
+#find longest word
 max_string = max([len(i) for i in data])
 
+#fill all other words with zeroes to match longest word
 def fillWords(data, max_string):
     for word in data:
         while len(word) < max_string:
@@ -70,6 +72,7 @@ def fillWords(data, max_string):
 
 data = fillWords(data, max_string)
 
+#shuffle arrays according to the same permutation
 data = np.asarray(data)
 labels = np.asarray(labels)
 perm = np.random.permutation(data.shape[0])
