@@ -8,7 +8,7 @@ class simpleNet(nn.Module):
         super().__init__()
 
         self.layer = nn.Sequential(        
-            nn.Linear(37,64),
+            nn.Linear(36,64),
             nn.BatchNorm1d(64),
             nn.ReLU(),
             nn.Linear(64,32),
