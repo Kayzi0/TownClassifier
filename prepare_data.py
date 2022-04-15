@@ -1,19 +1,21 @@
+from ast import Str
 import pandas as pd
 import torch
 import numpy as np
-
+import pickle
 #read csvs into pandas dataframes
-cat = pd.read_csv(r"data\cat.csv")
-bal = pd.read_csv(r"data\bal.csv")
-val = pd.read_csv(r"data\val.csv")
-fr = pd.read_csv(r"data\french-towns.csv")
-de = pd.read_csv(r"data\german-towns.csv")
-es = pd.read_csv(r"data\spanish-towns-ex-cat.csv")
+cat = pd.read_csv(r"data\raw\cat.csv")
+bal = pd.read_csv(r"data\raw\bal.csv")
+val = pd.read_csv(r"data\raw\val.csv")
+fr = pd.read_csv(r"data\raw\french-towns.csv")
+de = pd.read_csv(r"data\raw\german-towns.csv")
+es = pd.read_csv(r"data\raw\spanish-towns-ex-cat.csv")
 
-#all descriptor for row
+#add descriptor for row; change string to list of characters
 data = [cat, bal, val, fr, de, es]
 for dataset in data:
     dataset.columns = ["Town"]
+    dataset["Town"] = dataset["Town"]
 
 #concatenate catalan countries into one dataframe
 cat = pd.concat([cat,val,bal])
@@ -28,18 +30,61 @@ fr["Label"] = [labels["French"] for i in range(fr.size)]
 de["Label"] = [labels["German"] for i in range(de.size)]
 es["Label"] = [labels["Spanish"] for i in range(es.size)]
 
-data = [cat, fr, de, es]
-#split into training, validation and test data
-def get_train_n_test_data(data, slice1, slice2):
-    train_data = pd.DataFrame(columns=["Town", "Label"])
-    test_data = pd.DataFrame(columns=["Town", "Label"])
-    val_data = pd.DataFrame(columns=["Town", "Label"])
-    for dataset in data:
-        train_data = pd.concat([train_data, dataset[:int(dataset.shape[0]*slice1)]])
-        val_data = pd.concat([test_data, dataset[int(dataset.shape[0]*slice1):int(dataset.shape[0]*slice2)]])
-        test_data = pd.concat([test_data, dataset[int(dataset.shape[0]*slice2):]])
 
-    return train_data, val_data, test_data
+data = pd.concat([cat, fr, de, es])
 
-train_data, val_data, test_data = get_train_n_test_data(data, 0.7, 0.9)
+def encodeStrings(data):
+    #cast to list to allow string type conversion
+    data = data.values.tolist()
 
+    for pair in data:
+        #convert strings to lists of characters
+        pair[0] = list(pair[0])
+        for i in range(len(pair[0])):
+            #replace characters by unicode integer
+            pair[0][i] = ord(pair[0][i])
+    
+    return data
+
+data = encodeStrings(data)
+
+def seperate_labels(data):
+    #seperate data from labels
+    data, labels = map(list, zip(*data))
+    return data, labels
+
+data, labels = seperate_labels(data)
+
+max_string = max([len(i) for i in data])
+
+def fillWords(data, max_string):
+    for word in data:
+        while len(word) < max_string:
+            word.append(0)
+    return data
+
+data = fillWords(data, max_string)
+
+data = np.asarray(data)
+labels = np.asarray(labels)
+
+perm = np.random.permutation(data.shape[0])
+
+data = data[perm]
+labels = labels[perm]
+
+slice1 = 0.8
+slice2 = 0.9
+train_data = data[:int((data.shape[0]*slice1))]
+val_data = data[int((data.shape[0]*slice1)):int((data.shape[0]*slice2))]
+test_data = data[int((data.shape[0]*slice2)):]
+train_labels = data[:int((labels.shape[0]*slice1))]
+val_labels = data[int((labels.shape[0]*slice1)):int((labels.shape[0]*slice2))]
+test_labels = data[int((labels.shape[0]*slice2)):]
+
+pickle.dump(train_data, open(r"data\train_data.pkl", "wb"))
+pickle.dump(val_data, open(r"data\val_data.pkl", "wb"))
+pickle.dump(test_data, open(r"data\test_data.pkl", "wb"))
+pickle.dump(train_labels, open(r"data\train_labels.pkl", "wb"))
+pickle.dump(val_labels, open(r"data\val_labels.pkl", "wb"))
+pickle.dump(test_labels, open(r"data\test_labels.pkl", "wb"))
