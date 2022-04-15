@@ -12,7 +12,7 @@ val_data = pickle.load(open(r"data\val_data.pkl", "rb"))
 val_labels = pickle.load(open(r"data\val_labels.pkl", "rb"))
 
 
-train_dl = DataLoader(dataset=TownsDataset(train_data, train_labels), batch_size=32)
+train_dl = DataLoader(dataset=TownsDataset(train_data, train_labels), batch_size=32, shuffle=True)
 val_dl = DataLoader(dataset=TownsDataset(val_data, val_labels), batch_size=64)
 
 
@@ -23,7 +23,7 @@ weight = np.sqrt(1/(train_label_count / sum(train_label_count)))
 
 #prepare training
 net = simpleNet()
-epochs = 100
+epochs = 1000
 train_loss = torch.zeros(epochs)
 train_acc = torch.zeros(epochs)
 
@@ -42,12 +42,11 @@ for epoch in range(epochs):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-    train_loss[epoch] += loss.detach()
-    lbl_pred = torch.argmax(prediction, dim = 1)
-    train_acc[epoch] += sum(lbl_pred == label)
+        train_loss[epoch] += loss.detach()
+        lbl_pred = torch.argmax(prediction, dim = 1)
+        train_acc[epoch] += sum(lbl_pred == label)
     if epoch % 20 == 0:
         print("Current Epoch: " + str(epoch))
-        print("Current Training Accuracy: " + str(train_acc[epoch]))
 
     net.eval()
     #validation loop
@@ -60,8 +59,8 @@ for epoch in range(epochs):
         lbl_pred = torch.argmax(prediction, dim = 1)
         val_acc[epoch] += sum(lbl_pred == label)
 
-train_loss /= len(train_dl)
-train_acc /= len(train_dl)
+train_loss /= len(train_dl) * train_dl.batch_size
+train_acc /= len(train_dl) *train_dl.batch_size
 
 val_loss /= len(val_dl.dataset)
 val_acc /= len(val_dl.dataset)
