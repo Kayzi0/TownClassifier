@@ -5,6 +5,7 @@ def decodeTown(town):
     town = list(town)
     for i in range(len(town)):
         town[i] = chr(town[i])
+    town = "".join(town)
     return town
 
 

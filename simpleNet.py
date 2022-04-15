@@ -22,5 +22,5 @@ class simpleNet(nn.Module):
 
     def forward(self, x):
         x = self.layer(x)
-        x = F.softmax(x)
+        x = F.softmax(x, dim = 1)
         return x

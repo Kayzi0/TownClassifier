@@ -8,30 +8,35 @@ cat = pd.read_csv(r"data\raw\cat.csv")
 bal = pd.read_csv(r"data\raw\bal.csv")
 val = pd.read_csv(r"data\raw\val.csv")
 fr = pd.read_csv(r"data\raw\french-towns.csv")
-de = pd.read_csv(r"data\raw\german-towns.csv")
+cn = pd.read_csv(r"data\raw\chinese-towns.csv")
 es = pd.read_csv(r"data\raw\spanish-towns-ex-cat.csv")
 
 #add descriptor for row; change string to list of characters
-data = [cat, bal, val, fr, de, es]
+data = [cat, bal, val, fr, cn, es]
 for dataset in data:
     dataset.columns = ["Town"]
     dataset["Town"] = dataset["Town"]
+
+#modify set sizes to ensure even distribution
+
+fr = fr[:int(fr.shape[0]/5)]
+cn = cn[:int(cn.shape[0]/1.8)]
 
 #concatenate catalan countries into one dataframe
 cat = pd.concat([cat,val,bal])
 
 #encode labels
-labels = {"Catalan": 0, "French" : 1, "German" : 2, "Spanish": 3}
+labels = {"Catalan": 0, "French" : 1, "Chinese" : 2, "Spanish": 3}
 
 
 #add labels
 cat["Label"] = [labels["Catalan"] for i in range(cat.size)]
 fr["Label"] = [labels["French"] for i in range(fr.size)]
-de["Label"] = [labels["German"] for i in range(de.size)]
+cn["Label"] = [labels["Chinese"] for i in range(cn.size)]
 es["Label"] = [labels["Spanish"] for i in range(es.size)]
 
 
-data = pd.concat([cat, fr, de, es])
+data = pd.concat([cat, fr, cn, es])
 
 def encodeStrings(data):
     #cast to list to allow string type conversion
