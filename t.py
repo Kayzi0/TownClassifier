@@ -17,4 +17,6 @@ val_dl = DataLoader(dataset=TownsDataset(val_data, val_labels), batch_size=64)
 
 
 train_label_count = TownsDataset(train_data, train_labels).num_labels
+weight = np.sqrt(1/(train_label_count / sum(train_label_count)))
 print(train_label_count)
+print(weight)
