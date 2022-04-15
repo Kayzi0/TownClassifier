@@ -67,20 +67,18 @@ data = fillWords(data, max_string)
 
 data = np.asarray(data)
 labels = np.asarray(labels)
-
 perm = np.random.permutation(data.shape[0])
 
 data = data[perm]
 labels = labels[perm]
-
 slice1 = 0.8
 slice2 = 0.9
 train_data = data[:int((data.shape[0]*slice1))]
 val_data = data[int((data.shape[0]*slice1)):int((data.shape[0]*slice2))]
 test_data = data[int((data.shape[0]*slice2)):]
-train_labels = data[:int((labels.shape[0]*slice1))]
-val_labels = data[int((labels.shape[0]*slice1)):int((labels.shape[0]*slice2))]
-test_labels = data[int((labels.shape[0]*slice2)):]
+train_labels = labels[:int((labels.shape[0]*slice1))]
+val_labels = labels[int((labels.shape[0]*slice1)):int((labels.shape[0]*slice2))]
+test_labels = labels[int((labels.shape[0]*slice2)):]
 
 pickle.dump(train_data, open(r"data\train_data.pkl", "wb"))
 pickle.dump(val_data, open(r"data\val_data.pkl", "wb"))
