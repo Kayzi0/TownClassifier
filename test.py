@@ -13,7 +13,7 @@ net = simpleNet()
 net.load_state_dict(torch.load("model\params.model"))
 net.eval()
 
-
+test_label_count = TownsDataset(test_data, test_labels).num_labels
 test_acc = 0.
 show_pred_number = 10
 

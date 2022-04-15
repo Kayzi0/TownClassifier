@@ -8,19 +8,19 @@ class simpleNet(nn.Module):
         super().__init__()
 
         self.layer = nn.Sequential(        
-            nn.Linear(36,64),
-            nn.BatchNorm1d(64),
-            #nn.Dropout(0.2),
-            nn.Linear(64,32),
-            nn.BatchNorm1d(32),
-            #nn.Dropout(0.2),
+            nn.Linear(10,20),
+            nn.BatchNorm1d(20),
+            nn.Dropout(0.1),
+            nn.Linear(20,40),
+            nn.BatchNorm1d(40),
+            nn.Dropout(0.1),
             nn.ReLU(),
-            nn.Linear(32, 16),
-            nn.BatchNorm1d(16),
-            #nn.Dropout(0.2),
-            nn.Linear(16, 8),
+            nn.Linear(40, 20),
+            nn.BatchNorm1d(20),
+            nn.Dropout(0.1),
+            nn.Linear(20, 8),
             nn.BatchNorm1d(8),
-            #nn.Dropout(0.2),  
+            nn.Dropout(0.1),  
             nn.ReLU(),
             nn.Linear(8,4)
         )

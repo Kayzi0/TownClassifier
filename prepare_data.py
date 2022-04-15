@@ -1,4 +1,6 @@
 from ast import Str
+from cProfile import label
+from statistics import median
 import pandas as pd
 import torch
 import numpy as np
@@ -60,7 +62,8 @@ def seperate_labels(data):
 
 data, labels = seperate_labels(data)
 
-max_string = max([len(i) for i in data])
+
+
 
 def fillWords(data, max_string):
     for word in data:
@@ -68,16 +71,29 @@ def fillWords(data, max_string):
             word.append(0)
     return data
 
-data = fillWords(data, max_string)
+labels = np.array(labels)
 
-data = np.asarray(data)
-labels = np.asarray(labels)
+data_small = [i for i in data if len(i) < 11]
+
+data_indices = np.array([data.index(item) for item in data_small])
+labels_small = labels[data_indices]
+
+max_string = max([len(i) for i in data_small])
+
+data_small = fillWords(data_small, max_string)
+data_small = np.array(data_small)
+
+data = data_small
+labels = labels_small
+
 perm = np.random.permutation(data.shape[0])
+
+
 
 data = data[perm]
 labels = labels[perm]
 slice1 = 0.8
-slice2 = 0.95
+slice2 = 0.9
 train_data = data[:int((data.shape[0]*slice1))]
 val_data = data[int((data.shape[0]*slice1)):int((data.shape[0]*slice2))]
 test_data = data[int((data.shape[0]*slice2)):]
