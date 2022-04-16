@@ -10,17 +10,14 @@ class simpleConv(nn.Module):
             nn.Conv1d(1, 8, kernel_size=3, bias= False),
             nn.BatchNorm1d(8),
             nn.ReLU(),
-            nn.Dropout(0.1),
 
             nn.Conv1d(8,16, kernel_size=3, bias=False),
             nn.BatchNorm1d(16),
             nn.ReLU(),
-            nn.Dropout(0.1),
 
             nn.Conv1d(16, 32, kernel_size=3, bias=False),
             nn.BatchNorm1d(32),
             nn.ReLU(),
-            nn.Dropout(0.1)
         )
 
         self.avg_pool = nn.AdaptiveAvgPool1d(1)
