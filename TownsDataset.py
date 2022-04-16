@@ -2,6 +2,7 @@ import torch
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
 
+#Basic dataset implementation; included label count for testing purposes
 class TownsDataset(Dataset):
     def __init__(self, data, labels):
         self.data = torch.from_numpy(data)
