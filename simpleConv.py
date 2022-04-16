@@ -7,7 +7,7 @@ class simpleConv(nn.Module):
         super().__init__()
 
         self.encoder = nn.Sequential (
-            nn.Conv1d(1, 8, kernel_size=3, bias= False),
+            nn.Conv1d(1, 8, kernel_size=3, stride = 2, bias= False),
             nn.BatchNorm1d(8),
             nn.ReLU(),
 
