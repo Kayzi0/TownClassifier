@@ -11,7 +11,7 @@ fr = pd.read_csv(r"data\raw\french-towns.csv")
 cn = pd.read_csv(r"data\raw\chinese-towns.csv")
 es = pd.read_csv(r"data\raw\spanish-towns-ex-cat.csv")
 
-#add descriptor for row; change string to list of characters
+#add descriptor for row;
 data = [cat, bal, val, fr, cn, es]
 for dataset in data:
     dataset.columns = ["Town"]
