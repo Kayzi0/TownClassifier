@@ -8,7 +8,7 @@ class simpleNet(nn.Module):
         super().__init__()
 
         self.layer = nn.Sequential(        
-            nn.Linear(36,64),
+            nn.Linear(30,64),
             nn.BatchNorm1d(64),
             #nn.Dropout(0.2),
             nn.Linear(64,32),
@@ -22,7 +22,7 @@ class simpleNet(nn.Module):
             nn.BatchNorm1d(8),
             #nn.Dropout(0.2),  
             nn.ReLU(),
-            nn.Linear(8,4)
+            nn.Linear(8,2)
         )
 
     def forward(self, x):

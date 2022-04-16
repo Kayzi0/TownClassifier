@@ -11,5 +11,5 @@ def decodeTown(town):
 
 
 def decodeLabels(label):
-    labels = {0: "Catalan", 1: "French", 2: "Chinese", 3 : "Spanish"}
+    labels = {0: "French", 1: "Chinese"}
     return labels[label]

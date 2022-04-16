@@ -19,24 +19,24 @@ for dataset in data:
 
 #modify set sizes to ensure even distribution
 
-fr = fr[:int(fr.shape[0]/5)]
-cn = cn[:int(cn.shape[0]/1.8)]
+fr = fr[:int(fr.shape[0]/3)]
+#cn = cn[:int(cn.shape[0]/1.8)]
 
 #concatenate catalan countries into one dataframe
 cat = pd.concat([cat,val,bal])
 
 #encode labels
-labels = {"Catalan": 0, "French" : 1, "Chinese" : 2, "Spanish": 3}
+labels = {"French": 0, "Chinese": 1}
 
 
 #add labels
-cat["Label"] = [labels["Catalan"] for i in range(cat.size)]
+#cat["Label"] = [labels["Catalan"] for i in range(cat.size)]
 fr["Label"] = [labels["French"] for i in range(fr.size)]
 cn["Label"] = [labels["Chinese"] for i in range(cn.size)]
-es["Label"] = [labels["Spanish"] for i in range(es.size)]
+#es["Label"] = [labels["Spanish"] for i in range(es.size)]
 
 
-data = pd.concat([cat, fr, cn, es])
+data = pd.concat([fr, cn])
 
 def encodeStrings(data):
     #cast to list to allow string type conversion
