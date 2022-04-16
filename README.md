@@ -1,4 +1,4 @@
-# Townclassifier
+# TownClassifier
 Attempt to classify the location of a town based only on the name using a neural network 
 
 The dataset consist of a collection of town names from Spain, France, China, and the Catalan speaking regions of Spain. 
