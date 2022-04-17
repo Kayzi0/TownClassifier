@@ -1,6 +1,5 @@
-from turtle import forward
 import torch
-from torch import dropout, nn
+from torch import nn
 import torch.nn.functional as F
 
 class simpleNet(nn.Module):
@@ -9,18 +8,18 @@ class simpleNet(nn.Module):
 
         self.layer = nn.Sequential(        
             nn.Linear(36,64),
-            nn.BatchNorm1d(64),
-            #nn.Dropout(0.2),
+            #nn.BatchNorm1d(64),
+            nn.Dropout(0.2),
             nn.Linear(64,32),
-            nn.BatchNorm1d(32),
-            #nn.Dropout(0.2),
+            #nn.BatchNorm1d(32),
+            nn.Dropout(0.2),
             nn.ReLU(),
             nn.Linear(32, 16),
-            nn.BatchNorm1d(16),
-            #nn.Dropout(0.2),
+            #nn.BatchNorm1d(16),
+            nn.Dropout(0.2),
             nn.Linear(16, 8),
-            nn.BatchNorm1d(8),
-            #nn.Dropout(0.2),  
+            #nn.BatchNorm1d(8),
+            nn.Dropout(0.2),  
             nn.ReLU(),
             nn.Linear(8,4)
         )

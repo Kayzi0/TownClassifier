@@ -37,7 +37,10 @@ es["Label"] = [labels["Spanish"] for i in range(es.size)]
 
 
 data = pd.concat([cat, fr, cn, es])
-
+#convert all towns to upper and lower case to double data
+data_upper = data.applymap(lambda s: s.upper() if type(s) == str else s)
+data_lower = data.applymap(lambda s: s.lower() if type(s) == str else s)
+data = pd.concat([data_upper, data_lower])
 def encodeStrings(data):
     #cast to list to allow string type conversion
     data = data.values.tolist()
