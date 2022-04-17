@@ -23,7 +23,7 @@ train_label_count = TownsDataset(train_data, train_labels).num_labels
 weight = np.sqrt(1/(train_label_count / sum(train_label_count)))
 
 #prepare training
-net = simpleNet()
+net = simpleConv()
 epochs = 100
 train_loss = torch.zeros(epochs)
 train_acc = torch.zeros(epochs)

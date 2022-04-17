@@ -7,16 +7,16 @@ class simpleConv(nn.Module):
         super().__init__()
 
         self.encoder = nn.Sequential (
-            nn.Conv1d(1, 8, kernel_size=3, stride = 2, bias= False),
-            nn.BatchNorm1d(8),
+            nn.Conv1d(1, 8, kernel_size=5, bias= False),
+            #nn.BatchNorm1d(8),
             nn.ReLU(),
 
-            nn.Conv1d(8,16, kernel_size=3, bias=False),
-            nn.BatchNorm1d(16),
+            nn.Conv1d(8,16, kernel_size=5, bias=False),
+            #nn.BatchNorm1d(16),
             nn.ReLU(),
 
-            nn.Conv1d(16, 32, kernel_size=3, bias=False),
-            nn.BatchNorm1d(32),
+            nn.Conv1d(16, 32, kernel_size=5, bias=False),
+            #nn.BatchNorm1d(32),
             nn.ReLU(),
         )
 
@@ -24,7 +24,7 @@ class simpleConv(nn.Module):
 
         self.classifier = nn.Sequential(
             nn.Linear(32,8, bias=False),
-            nn.BatchNorm1d(8),
+            #nn.BatchNorm1d(8),
             nn.ReLU(),
             nn.Dropout(0.5),
             nn.Linear(8,4)
