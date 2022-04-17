@@ -24,7 +24,7 @@ weight = np.sqrt(1/(train_label_count / sum(train_label_count)))
 
 #prepare training
 net = simpleConv()
-epochs = 100
+epochs = 250
 train_loss = torch.zeros(epochs)
 train_acc = torch.zeros(epochs)
 
