@@ -1,6 +1,5 @@
-from turtle import forward
 import torch
-from torch import dropout, nn
+from torch import nn
 import torch.nn.functional as F
 
 class simpleNet(nn.Module):
